@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     longitude: float
 
     output_path: str = "data/raw"
+    processed_path: str = "data/processed"
 
     log_level: Literal[
         "DEBUG",
