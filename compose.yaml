@@ -1,0 +1,12 @@
+services:
+  etl:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: open-data-etl
+
+    volumes:
+      - ./data:/app/data
+
+    restart: "no"
