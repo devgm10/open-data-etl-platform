@@ -4,7 +4,8 @@ version = "0.1.0"
 description = "Open data ETL platform for learning Data Engineering, DevOps and Cloud."
 requires-python = ">3.12, <3.13"
 dependencies = [
-    "httpx>0.28,<1.0"
+    "httpx",
+    "pydantic-settings",
 ]
 
 [build-system]

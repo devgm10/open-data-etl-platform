@@ -1,10 +1,12 @@
 services:
   etl:
+    container_name: open-data-etl
     build:
       context: .
       dockerfile: Dockerfile
 
-    container_name: open-data-etl
+    env_file:
+      - .env
 
     volumes:
       - ./data:/app/data
