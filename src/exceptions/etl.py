@@ -16,3 +16,6 @@ class TransformationError(ETLException):
 
 class StorageError(ETLException):
     """Raised when data storage fails."""
+
+class DataQualityError(ETLException):
+    """Raised when data quality validation fails."""

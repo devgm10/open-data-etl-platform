@@ -5,6 +5,7 @@ from src.exceptions.etl import ETLException
 from src.extract.weather_api import WeatherAPIExtractor
 from src.storage.local_storage import LocalStorage
 from src.storage.processed_storage import ProcessedStorage
+from src.quality.weather import WeatherDataQuality
 from src.transform.weather import WeatherTransformer
 from src.utils.logger import get_logger
 
@@ -30,6 +31,8 @@ def main() -> None:
         base_path=settings.processed_path,
     )
 
+    data_quality = WeatherDataQuality()
+
     transformer = WeatherTransformer()
 
     weather_data = extractor.extract(
@@ -50,8 +53,12 @@ def main() -> None:
         raw_data,
     )
 
+    validated_dataframe = data_quality.validate(
+        weather_dataframe,
+    )
+
     processed_storage.save_csv(
-        dataframe=weather_dataframe,
+        dataframe=validated_dataframe,
         filename="weather.csv",
     )
 

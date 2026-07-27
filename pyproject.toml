@@ -7,6 +7,7 @@ dependencies = [
     "httpx",
     "pydantic-settings",
     "pandas",
+    "pytest",
 ]
 
 [build-system]
