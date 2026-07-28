@@ -29,3 +29,6 @@ jobs:
 
         -   name: Run tests
             run: pytest
+
+        -   name: Build production Docker image
+            run: docker build --target production -t open-data-etl-platform:latest .
