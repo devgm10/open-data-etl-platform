@@ -2,6 +2,7 @@ import pandas as pd
 
 from src.transform.weather import WeatherTransformer
 
+
 def test_weather_transformer_returns_dataframe():
     raw_data = {
         "latitude": -12.0464,

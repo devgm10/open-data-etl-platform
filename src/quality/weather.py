@@ -1,15 +1,16 @@
+from typing import ClassVar
+
 import pandas as pd
 
 from src.exceptions.etl import DataQualityError
 from src.utils.logger import get_logger
-
 
 logger = get_logger(__name__)
 
 
 class WeatherDataQuality:
 
-    REQUIRED_COLUMNS = {
+    REQUIRED_COLUMNS: ClassVar[set[str]] = {
         "latitude",
         "longitude",
         "timezone",

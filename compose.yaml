@@ -4,12 +4,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: development
 
     env_file:
       - .env
 
     volumes:
       - ./data:/app/data
-      - ./tests:/app/tests
 
     restart: "no"

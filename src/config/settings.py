@@ -2,6 +2,7 @@ from typing import Literal
 
 from pydantic import ValidationError, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
 from src.exceptions.etl import ConfigurationError
 
 

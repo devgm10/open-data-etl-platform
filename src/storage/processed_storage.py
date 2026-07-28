@@ -1,5 +1,6 @@
-import pandas as pd
 from pathlib import Path
+
+import pandas as pd
 
 from src.exceptions.etl import StorageError
 from src.utils.logger import get_logger
