@@ -37,6 +37,3 @@ class ProcessedStorage:
         )
 
         return file_path
-
-
-

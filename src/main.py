@@ -3,41 +3,34 @@ import sys
 from src.config.settings import get_settings
 from src.exceptions.etl import ETLException
 from src.extract.weather_api import WeatherAPIExtractor
+from src.quality.weather import WeatherDataQuality
 from src.storage.local_storage import LocalStorage
 from src.storage.processed_storage import ProcessedStorage
-from src.quality.weather import WeatherDataQuality
 from src.transform.weather import WeatherTransformer
 from src.utils.logger import get_logger
 
 
-def main() -> None:
+def run_pipeline(
+    extractor: WeatherAPIExtractor,
+    storage: LocalStorage,
+    transformer: WeatherTransformer,
+    data_quality: WeatherDataQuality,
+    processed_storage: ProcessedStorage,
+    latitude: float,
+    longitude: float,
+) -> None:
 
-    settings = get_settings()
-    logger = get_logger(__name__, settings.log_level)
+    logger = get_logger(
+        __name__,
+    )
 
     logger.info(
         "Starting ETL extraction process"
     )
 
-    extractor = WeatherAPIExtractor(
-        api_url=settings.api_url,
-    )
-
-    storage = LocalStorage(
-        base_path=settings.output_path,
-    )
-
-    processed_storage = ProcessedStorage(
-        base_path=settings.processed_path,
-    )
-
-    data_quality = WeatherDataQuality()
-
-    transformer = WeatherTransformer()
-
     weather_data = extractor.extract(
-        latitude=settings.latitude,
-        longitude=settings.longitude,
+        latitude=latitude,
+        longitude=longitude,
     )
 
     storage.save_json(
@@ -64,6 +57,37 @@ def main() -> None:
 
     logger.info(
         "ETL extraction process completed successfully"
+    )
+
+
+def main() -> None:
+
+    settings = get_settings()
+
+    extractor = WeatherAPIExtractor(
+        api_url=settings.api_url,
+    )
+
+    storage = LocalStorage(
+        base_path=settings.output_path,
+    )
+
+    processed_storage = ProcessedStorage(
+        base_path=settings.processed_path,
+    )
+
+    transformer = WeatherTransformer()
+
+    data_quality = WeatherDataQuality()
+
+    run_pipeline(
+        extractor=extractor,
+        storage=storage,
+        transformer=transformer,
+        data_quality=data_quality,
+        processed_storage=processed_storage,
+        latitude=settings.latitude,
+        longitude=settings.longitude,
     )
 
 
