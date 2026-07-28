@@ -1,11 +1,8 @@
 name: ETL Pipeline CI/CD
 
 on:
-    push:
-        branches: [develop]
-
     pull_request:
-        branches: [develop, main]
+        branches: [main]
 
 jobs:
     quality:
